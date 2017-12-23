@@ -1,15 +1,29 @@
   $(document).ready(function() {
       var length_bln, upper_bln, lower_bln, special_bln, number_bln = false;
       $('#pass_chck_icon').hide();
+      $('#email_chck_icon').hide();
+
 
       $('#txt_password').keyup(function() {
           check($(this).val());
       });
-      $('#txt_password').focusout(function() {
+
+      $('#txt_email').keyup(function() {
+          if (validateEmail($('#txt_email').val())) {
+              $('#email_chck_icon').removeClass('fa-minus-square').addClass('fa-check-square').css('color', 'green');
+              $('#email_chck_icon').show();
+          } else {
+              $('#email_chck_icon').removeClass('fa-check-square').addClass('fa-minus-square').css('color', 'red');
+              $('#email_chck_icon').show();
+          }
+      });
+      $('#txt_password').keyup(function() {
           if (length_bln && upper_bln && lower_bln && special_bln && number_bln) {
+              $('#pass_chck_icon').removeClass('fa-minus-square').addClass('fa-check-square').css('color', 'green');
               $('#pass_chck_icon').show();
           } else {
-              $('#pass_chck_icon').hide();
+              $('#pass_chck_icon').removeClass('fa-check-square').addClass('fa-minus-square').css('color', 'red');
+              $('#pass_chck_icon').show();
           }
       });
 
@@ -83,4 +97,9 @@
 
   function hasNumber(str) {
       return /\d/.test(str);
+  }
+
+  function validateEmail(email) {
+      var re = /\S+@\S+\.\S+/;
+      return re.test(email);
   }
