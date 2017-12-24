@@ -1,5 +1,6 @@
   $(document).ready(function() {
       var length_bln, upper_bln, lower_bln, special_bln, number_bln = false;
+      var progress_var_value = 0;
       $('#pass_chck_icon').hide();
       $('#email_chck_icon').hide();
 
@@ -33,6 +34,8 @@
               $('#length_row').css('color', 'green');
               $('#length_row').find($(".fa")).removeClass('fa-minus-square').addClass('fa-plus-square');
               length_bln = true;
+              progress_var_value += 20;
+              update_progress_bar(progress_var_value, '#progress_bar');
           } else {
               $('#length_row').css('color', 'red');
               $('#length_row').find($(".fa")).removeClass('fa-plus-square').addClass('fa-minus-square');
@@ -102,4 +105,8 @@
   function validateEmail(email) {
       var re = /\S+@\S+\.\S+/;
       return re.test(email);
+  }
+
+  function update_progress_bar(value, progress_bar_id) {
+      $(progress_bar_id).css('width', value + '%').attr('aria-valuenow', value).text(value + '%');
   }
