@@ -1,6 +1,7 @@
+  var progress_var_value = 0;
+
   $(document).ready(function() {
       var length_bln, upper_bln, lower_bln, special_bln, number_bln = false;
-      var progress_var_value = 0;
       $('#pass_chck_icon').hide();
       $('#email_chck_icon').hide();
 
@@ -34,8 +35,7 @@
               $('#length_row').css('color', 'green');
               $('#length_row').find($(".fa")).removeClass('fa-minus-square').addClass('fa-plus-square');
               length_bln = true;
-              progress_var_value += 20;
-              update_progress_bar(progress_var_value, '#progress_bar');
+              update_progress_bar('#progress_bar', 'lenght');
           } else {
               $('#length_row').css('color', 'red');
               $('#length_row').find($(".fa")).removeClass('fa-plus-square').addClass('fa-minus-square');
@@ -46,6 +46,7 @@
               $('#uppercase_row').css('color', 'green');
               $('#uppercase_row').find($(".fa")).removeClass('fa-minus-square').addClass('fa-plus-square');
               upper_bln = true;
+              update_progress_bar('#progress_bar', 'upper');
           } else {
               $('#uppercase_row').css('color', 'red');
               $('#uppercase_row').find($(".fa")).removeClass('fa-plus-square').addClass('fa-minus-square');
@@ -56,6 +57,7 @@
               $('#lowercase_row').css('color', 'green');
               $('#lowercase_row').find($(".fa")).removeClass('fa-minus-square').addClass('fa-plus-square');
               lower_bln = true;
+              update_progress_bar('#progress_bar', 'lower');
           } else {
               $('#lowercase_row').css('color', 'red');
               $('#lowercase_row').find($(".fa")).removeClass('fa-plus-square').addClass('fa-minus-square');
@@ -66,6 +68,7 @@
               $('#special_row').css('color', 'green');
               $('#special_row').find($(".fa")).removeClass('fa-minus-square').addClass('fa-plus-square');
               special_bln = true;
+              update_progress_bar('#progress_bar', 'special');
           } else {
               $('#special_row').css('color', 'red');
               $('#special_row').find($(".fa")).removeClass('fa-plus-square').addClass('fa-minus-square');
@@ -76,6 +79,7 @@
               $('#number_row').css('color', 'green');
               $('#number_row').find($(".fa")).removeClass('fa-minus-square').addClass('fa-plus-square');
               number_bln = true;
+              update_progress_bar('#progress_bar', 'number');
           } else {
               $('#number_row').css('color', 'red');
               $('#number_row').find($(".fa")).removeClass('fa-plus-square').addClass('fa-minus-square');
@@ -107,6 +111,11 @@
       return re.test(email);
   }
 
-  function update_progress_bar(value, progress_bar_id) {
-      $(progress_bar_id).css('width', value + '%').attr('aria-valuenow', value).text(value + '%');
+  function update_progress_bar(progress_bar_id, data_string) {
+
+      if ($(progress_bar_id).data(data_string) != 'true') {
+          progress_var_value += 20;
+          $(progress_bar_id).css('width', progress_var_value + '%').attr('aria-valuenow', progress_var_value).text(progress_var_value + '%').data(data_string, 'true');
+      }
+
   }
